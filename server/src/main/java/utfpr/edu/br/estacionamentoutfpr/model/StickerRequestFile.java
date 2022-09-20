@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -20,7 +17,7 @@ public class StickerRequestFile {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "A requisição de adesivo não pode ser nula")
     @ManyToOne
     private StickerRequest stickerRequest;
 

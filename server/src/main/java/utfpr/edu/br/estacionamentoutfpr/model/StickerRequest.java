@@ -17,18 +17,18 @@ public class StickerRequest {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "O usuário não pode ser nulo")
     @ManyToOne
-    private User userRequester;
+    private Operator operatorRequester;
 
-    @NotNull
+    @NotNull(message = "O veículo não pode ser nulo")
     @OneToOne
     private Veicle veicle;
 
     @ManyToOne
-    private User userApprover;
+    private Operator operatorApprover;
 
-    @NotNull
+    @NotNull(message = "O status não pode ser nulo")
     private RequestStatus status;
 
     private String requesterMessage;

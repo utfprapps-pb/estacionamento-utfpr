@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -20,11 +17,11 @@ public class Infraction {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @NotNull
+    @NotNull(message = "O veículo não pode ser nulo")
     @ManyToOne
     private Veicle veicle;
 
-    @NotNull
+    @NotNull(message = "A descrição não pode ser nula")
     private String description;
 
     private String explanation;

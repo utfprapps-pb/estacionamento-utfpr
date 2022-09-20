@@ -23,7 +23,7 @@ public class Veicle {
 
     private String year;
 
-    @NotNull
+    @NotNull(message = "A placa não pode ser nula")
     private String licensePlate;
 
     private String color;
@@ -31,6 +31,5 @@ public class Veicle {
     private String documentFileName;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Operator operator;
 }
