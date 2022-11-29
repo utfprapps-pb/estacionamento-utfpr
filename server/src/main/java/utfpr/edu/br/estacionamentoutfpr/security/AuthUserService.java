@@ -5,20 +5,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import utfpr.edu.br.estacionamentoutfpr.model.User;
-import utfpr.edu.br.estacionamentoutfpr.repository.UserRepository;
+import utfpr.edu.br.estacionamentoutfpr.model.Operator;
+import utfpr.edu.br.estacionamentoutfpr.repository.OperatorRepository;
 
 @Service
 public class AuthUserService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private OperatorRepository operatorRepository;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+        Operator operator = operatorRepository.findByUsername(username);
+        if (operator == null) {
             throw new UsernameNotFoundException("User Not Found");
         }
-        return user;
+        return operator;
     }
 }

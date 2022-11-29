@@ -2,19 +2,22 @@ package utfpr.edu.br.estacionamentoutfpr.security;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import utfpr.edu.br.estacionamentoutfpr.model.Operator;
 import utfpr.edu.br.estacionamentoutfpr.model.User;
+
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 public class UserDTO {
 
-    private long id;
-    private String displayName;
+    private UUID id;
+    private String name;
     private String username;
 
-    public UserDTO(User user) {
-        this.id = user.getId();
-        this.displayName = user.getDisplayName();
-        this.username = user.getUsername();
+    public UserDTO(Operator operator) {
+        this.id = operator.getId();
+        this.name = operator.getName();
+        this.username = operator.getUsername();
     }
 }

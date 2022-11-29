@@ -3,6 +3,7 @@ package utfpr.edu.br.estacionamentoutfpr.model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import utfpr.edu.br.estacionamentoutfpr.annotation.UniqueUsername;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

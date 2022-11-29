@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import utfpr.edu.br.estacionamentoutfpr.model.AuthProvider;
 import utfpr.edu.br.estacionamentoutfpr.model.Authority;
+import utfpr.edu.br.estacionamentoutfpr.model.Operator;
 import utfpr.edu.br.estacionamentoutfpr.model.User;
 import utfpr.edu.br.estacionamentoutfpr.repository.AuthorityRepository;
+import utfpr.edu.br.estacionamentoutfpr.repository.OperatorRepository;
 import utfpr.edu.br.estacionamentoutfpr.repository.UserRepository;
 import utfpr.edu.br.estacionamentoutfpr.security.AuthUserService;
 import utfpr.edu.br.estacionamentoutfpr.security.SecurityConstants;
 import utfpr.edu.br.estacionamentoutfpr.security.dto.AuthenticationResponse;
 import utfpr.edu.br.estacionamentoutfpr.security.dto.UserResponseDTO;
+import utfpr.edu.br.estacionamentoutfpr.service.OperatorService;
 import utfpr.edu.br.estacionamentoutfpr.service.impl.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,19 +33,19 @@ public class AuthController {
 
     private final GoogleTokenVerifier googleTokenVerifier;
     private final AuthUserService authUserService;
-    private final UserService userService;
-    private final UserRepository userRepository;
+    private final OperatorService operatorService;
+    private final OperatorRepository operatorRepository;
 
     private final AuthorityRepository authorityRepository;
 
     public AuthController(GoogleTokenVerifier googleTokenVerifier, AuthUserService authUserService,
-                          UserService userService,
-                          UserRepository userRepository,
+                          OperatorService operatorService,
+                          OperatorRepository operatorRepository,
                           AuthorityRepository authorityRepository) {
         this.googleTokenVerifier = googleTokenVerifier;
         this.authUserService = authUserService;
-        this.userService = userService;
-        this.userRepository = userRepository;
+        this.operatorService = operatorService;
+        this.operatorRepository = operatorRepository;
         this.authorityRepository = authorityRepository;
     }
 
@@ -55,16 +58,16 @@ public class AuthController {
                 payload = googleTokenVerifier.verify(idToken.replace(SecurityConstants.TOKEN_PREFIX, ""));
                 if (payload != null) {
                     String username = payload.getEmail();
-                    User user = userRepository.findByUsername(username);
-                    if (user == null) {
-                        user = new User();
-                        user.setUsername(payload.getEmail());
-                        user.setDisplayName( (String) payload.get("name"));
-                        user.setPassword("P4ssword");
-                        user.setProvider(AuthProvider.google);
-                        user.setUserAuthorities(new HashSet<>());
-                        user.getUserAuthorities().add(authorityRepository.findById(1L).orElse(new Authority()));
-                        userService.save(user);
+                    Operator operator = operatorRepository.findByUsername(username);
+                    if (operator == null) {
+                        operator = new Operator();
+                        operator.setUsername(payload.getEmail());
+                        operator.setName( (String) payload.get("name"));
+                        operator.setPassword("P4ssword");
+                        operator.setProvider(AuthProvider.google);
+                        operator.setUserAuthorities(new HashSet<>());
+                        operator.getUserAuthorities().add(authorityRepository.findById(1L).orElse(new Authority()));
+                        operatorService.save(operator);
                     }
 
                     String token = JWT.create()
@@ -73,7 +76,7 @@ public class AuthController {
                                     SecurityConstants.EXPIRATION_TIME))
                             .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
 
-                    return  ResponseEntity.ok( new AuthenticationResponse(token, new UserResponseDTO(user)) );
+                    return  ResponseEntity.ok( new AuthenticationResponse(token, new UserResponseDTO(operator)) );
 
                 }
             } catch (Exception e) {

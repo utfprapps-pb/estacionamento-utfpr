@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import utfpr.edu.br.estacionamentoutfpr.model.Operator;
 import utfpr.edu.br.estacionamentoutfpr.model.User;
 
 import java.util.HashSet;
@@ -16,15 +17,15 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserResponseDTO {
 
-    private String displayName;
+    private String name;
     private String username;
     private Set<AuthorityResponseDTO> authorities;
 
-    public UserResponseDTO(User user) {
-        this.displayName = user.getDisplayName();
-        this.username = user.getUsername();
+    public UserResponseDTO(Operator operator) {
+        this.name = operator.getName();
+        this.username = operator.getUsername();
         this.authorities = new HashSet<>();
-        for (GrantedAuthority authority: user.getAuthorities()) {
+        for (GrantedAuthority authority: operator.getAuthorities()) {
             authorities.add( new AuthorityResponseDTO(authority.getAuthority()) );
         }
     }

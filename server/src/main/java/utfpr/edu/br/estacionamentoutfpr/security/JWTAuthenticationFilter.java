@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import utfpr.edu.br.estacionamentoutfpr.model.User;
+import utfpr.edu.br.estacionamentoutfpr.model.Operator;
 import utfpr.edu.br.estacionamentoutfpr.security.dto.AuthenticationResponse;
 import utfpr.edu.br.estacionamentoutfpr.security.dto.UserResponseDTO;
 
@@ -34,9 +34,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            User credentials = new ObjectMapper().readValue(
-                    request.getInputStream(), User.class);
-            User user = (User)
+            Operator credentials = new ObjectMapper().readValue(
+                    request.getInputStream(), Operator.class);
+            Operator operator = (Operator)
                     authUserService.loadUserByUsername(credentials.getUsername());
 
 
@@ -44,7 +44,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     new UsernamePasswordAuthenticationToken(
                             credentials.getUsername(),
                             credentials.getPassword(),
-                            user.getAuthorities()
+                            operator.getAuthorities()
                     )
             );
         } catch (IOException e) {
@@ -59,7 +59,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult)
             throws IOException, ServletException {
 
-        User user = (User)
+        Operator operator = (Operator)
                 authUserService.loadUserByUsername(authResult.getName());
         String token = JWT.create()
                 .withSubject(authResult.getName())
@@ -69,7 +69,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setContentType("application/json");
         response.getWriter().write(
                 new ObjectMapper().writeValueAsString(
-                        new AuthenticationResponse(token, new UserResponseDTO(user)))
+                        new AuthenticationResponse(token, new UserResponseDTO(operator)))
         );
     }
 

@@ -6,7 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import utfpr.edu.br.estacionamentoutfpr.model.User;
+import utfpr.edu.br.estacionamentoutfpr.model.Operator;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -47,9 +47,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                     .getSubject();
             if (username != null) {
-                User user = (User) authUserService.loadUserByUsername(username);
+                Operator operator = (Operator) authUserService.loadUserByUsername(username);
                 return new UsernamePasswordAuthenticationToken(
-                        username, null, user.getAuthorities()
+                        username, null, operator.getAuthorities()
                 );
             }
             return null;

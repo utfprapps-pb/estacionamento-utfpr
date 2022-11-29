@@ -3,21 +3,21 @@ package utfpr.edu.br.estacionamentoutfpr.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import utfpr.edu.br.estacionamentoutfpr.annotation.UniqueUsername;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
-public class Operator {
+public class Operator implements UserDetails {
     @Id
     @GeneratedValue
     @Type(type = "uuid-char")
@@ -62,5 +62,41 @@ public class Operator {
 
     private String documentFileName;
 
-    private Profile profile;
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_authorities",
+            joinColumns = @JoinColumn(
+                    name = "operator_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "authority_id", referencedColumnName = "id"))
+    private Set<Authority> userAuthorities;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.addAll(this.userAuthorities);
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
