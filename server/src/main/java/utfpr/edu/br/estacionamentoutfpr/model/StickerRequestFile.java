@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 public class StickerRequestFile {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
 

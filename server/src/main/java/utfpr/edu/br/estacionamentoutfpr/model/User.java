@@ -8,10 +8,7 @@ import utfpr.edu.br.estacionamentoutfpr.annotation.UniqueUsername;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity

@@ -11,9 +11,9 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-public class Veicle {
+public class Vehicle {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
 

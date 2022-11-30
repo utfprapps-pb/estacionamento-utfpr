@@ -19,7 +19,7 @@ import java.util.*;
 @Setter
 public class Operator implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
 
@@ -75,9 +75,7 @@ public class Operator implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.addAll(this.userAuthorities);
-        return authorities;
+        return new ArrayList<GrantedAuthority>(this.userAuthorities);
     }
 
     @Override

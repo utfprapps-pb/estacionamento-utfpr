@@ -1,10 +1,10 @@
 package utfpr.edu.br.estacionamentoutfpr.service;
 
+import utfpr.edu.br.estacionamentoutfpr.model.Infraction;
 import utfpr.edu.br.estacionamentoutfpr.model.Operator;
 
 import java.util.UUID;
 
-public interface OperatorService  {
+public interface OperatorService extends CrudService<Operator, UUID>  {
 
-    public Operator save(Operator operator);
 }

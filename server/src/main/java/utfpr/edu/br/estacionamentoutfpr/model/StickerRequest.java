@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 public class StickerRequest {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
 
@@ -23,7 +23,7 @@ public class StickerRequest {
 
     @NotNull(message = "O veículo não pode ser nulo")
     @OneToOne
-    private Veicle veicle;
+    private Vehicle vehicle;
 
     @ManyToOne
     private Operator operatorApprover;

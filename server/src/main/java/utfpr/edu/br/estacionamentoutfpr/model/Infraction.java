@@ -13,13 +13,13 @@ import java.util.UUID;
 @Setter
 public class Infraction {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
 
     @NotNull(message = "O veículo não pode ser nulo")
     @ManyToOne
-    private Veicle veicle;
+    private Vehicle vehicle;
 
     @NotNull(message = "A descrição não pode ser nula")
     private String description;
