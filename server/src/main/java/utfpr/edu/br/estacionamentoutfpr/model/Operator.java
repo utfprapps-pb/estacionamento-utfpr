@@ -37,11 +37,11 @@ public class Operator implements UserDetails {
     @Size(min = 4, max = 255)
     private String name;
 
-    @NotNull(message = "O sobrenome não pode ser nulo")
+    //@NotNull(message = "O sobrenome não pode ser nulo")
     @Size(min = 4, max = 255)
     private String surename;
 
-    @NotNull(message = "O email não pode ser nulo")
+    //@NotNull(message = "O email não pode ser nulo")
     @Email(message = "Email inválido", regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
     private String email;
 
