@@ -33,33 +33,44 @@ export function NavBar() {
             </li>
             <li className="nav-item">
               <NavLink
-                to="/categories"
+                to="/solicitacoes"
                 className={(navData) =>
                   navData.isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Categorias
+                Solicitacoes
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                to="/products"
+                to="/externos"
                 className={(navData) =>
                   navData.isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Produtos
+                Externo
               </NavLink>
             </li>
 
             <li className="nav-item">
               <NavLink
-                to="/product-v2"
+                to="/funcionarios"
                 className={(navData) =>
                   navData.isActive ? "nav-link active" : "nav-link"
                 }
               >
-                Product V2
+              Funcionarios
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink
+                to="/infracao"
+                className={(navData) =>
+                  navData.isActive ? "nav-link active" : "nav-link"
+                }
+              >
+              Justificar Infração
               </NavLink>
             </li>
 

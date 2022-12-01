@@ -32,16 +32,21 @@ export function App () {
 
         {/* protected routes - Roles: User and Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
+          <Route path='/solicitacoes' element={<Dashboard />} />
           <Route path='/home' element={<Dashboard />} />
           <Route path='/' element={<Dashboard />} />
 
         </Route>
 
         {/* protected routes - Role: Admin */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />} />
-
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />} >
+          <Route path='/externos' element={<Dashboard />} />
+          <Route path='/funcionarios' element={<Dashboard />} />
+        </Route>
+        
         {/* catch all */}
         <Route path='*' element={<NotFound />} />
+
       </Route>
     </Routes>
   )
