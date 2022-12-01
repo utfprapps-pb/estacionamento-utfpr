@@ -2,25 +2,23 @@ package utfpr.edu.br.estacionamentoutfpr.security.social;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import utfpr.edu.br.estacionamentoutfpr.model.AuthProvider;
 import utfpr.edu.br.estacionamentoutfpr.model.Authority;
 import utfpr.edu.br.estacionamentoutfpr.model.Operator;
-import utfpr.edu.br.estacionamentoutfpr.model.User;
 import utfpr.edu.br.estacionamentoutfpr.repository.AuthorityRepository;
 import utfpr.edu.br.estacionamentoutfpr.repository.OperatorRepository;
-import utfpr.edu.br.estacionamentoutfpr.repository.UserRepository;
 import utfpr.edu.br.estacionamentoutfpr.security.AuthUserService;
 import utfpr.edu.br.estacionamentoutfpr.security.SecurityConstants;
 import utfpr.edu.br.estacionamentoutfpr.security.dto.AuthenticationResponse;
 import utfpr.edu.br.estacionamentoutfpr.security.dto.UserResponseDTO;
-import utfpr.edu.br.estacionamentoutfpr.service.OperatorService;
-import utfpr.edu.br.estacionamentoutfpr.service.impl.UserService;
+import utfpr.edu.br.estacionamentoutfpr.service.
+        OperatorService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

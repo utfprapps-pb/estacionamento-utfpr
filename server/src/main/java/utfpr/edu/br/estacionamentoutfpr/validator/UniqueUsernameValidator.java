@@ -1,10 +1,8 @@
 package utfpr.edu.br.estacionamentoutfpr.validator;
 
-import utfpr.edu.br.estacionamentoutfpr.annotation.UniqueUsername;
-import utfpr.edu.br.estacionamentoutfpr.model.Operator;
-import utfpr.edu.br.estacionamentoutfpr.repository.OperatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import utfpr.edu.br.estacionamentoutfpr.repository.UserRepository;
+import utfpr.edu.br.estacionamentoutfpr.annotation.UniqueUsername;
+import utfpr.edu.br.estacionamentoutfpr.repository.OperatorRepository;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

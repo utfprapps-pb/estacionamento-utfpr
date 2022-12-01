@@ -26,7 +26,6 @@ public class WebSecurity {
         this.authUserService = authUserService;
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
-
     @Bean
     @SneakyThrows
     public SecurityFilterChain filterChain(HttpSecurity http) {

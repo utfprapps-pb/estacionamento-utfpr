@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import utfpr.edu.br.estacionamentoutfpr.model.Operator;
-import utfpr.edu.br.estacionamentoutfpr.model.User;
 
 import java.util.HashSet;
 import java.util.Set;
