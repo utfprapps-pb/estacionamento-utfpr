@@ -4,6 +4,7 @@ import { Layout } from "./pages/Layout";
 import { LoginPage } from "./pages/LoginPage";
 import { UserSignupPage } from "./pages/UserSignupPage";
 import { Dashboard } from "./pages/HomePage";
+import { RequestFormPage } from "./pages/Request";
 import { RequireAuth } from "./components/RequireAuth";
 import { NotFound } from "./pages/NotFound";
 import { Unauthorized } from "./pages/Unauthorized";
@@ -32,7 +33,7 @@ export function App () {
 
         {/* protected routes - Roles: User and Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
-          <Route path='/solicitacoes' element={<Dashboard />} />
+          <Route path='/solicitacoes' element={<RequestFormPage />} />
           <Route path='/home' element={<Dashboard />} />
           <Route path='/' element={<Dashboard />} />
 
