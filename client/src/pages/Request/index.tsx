@@ -13,16 +13,26 @@ import {
   Col
 } from "react-bootstrap";
 
-const [brands, setBrands] = useState([]);
-
 export function RequestFormPage() {
+
+const [brands, setBrands]: any = useState([]);
+const [selectedBrand, setSelectedBrand]: any = useState(1);
+const [models, setModels]: any = useState([]);
+
+useEffect(() => {
+  RequestService.getModels(selectedBrand)
+    .then((response: any) => {
+      setModels(response.data);
+    })
+}, [selectedBrand]);
 
 useEffect(() => {
   RequestService.getBrands()
     .then((response: any) => {
-      setBrands(response);
+      setBrands(response.data);
     })
 },[]);
+
 
   return (
     <>
@@ -48,17 +58,20 @@ useEffect(() => {
                     </Col>
                     <Col className="px-1" md="3">
                       <Form.Group>
-                        <label>Marca</label>
-                        <Form.Select name="Brand" value={brands}>
+                      <label>Marca</label>
+                        <Form.Select name="brand"
+                        onChange={e => setSelectedBrand(e.target.value)}>
+                          {brands.map((brand: any) => 
+                          <option value={brand.value}>{brand.label}</option>)}
                         </Form.Select>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>Modelo</label>
-                        <Form.Select aria-label="Model">
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
+                      <label>Modelo</label>
+                        <Form.Select name="model">
+                          {models.map((model: any) => 
+                          <option value={model.value}>{model.label}</option>)}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -126,4 +139,4 @@ useEffect(() => {
       </Container>
     </>
   );
-}
+};
