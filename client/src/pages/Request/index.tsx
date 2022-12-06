@@ -1,38 +1,75 @@
 import { useEffect, useState } from "react";
 import RequestService from "../../services/RequestService";
 // react-bootstrap components
-import {
-  Badge,
-  Button,
-  Card,
-  Form,
-  Navbar,
-  Nav,
-  Container,
-  Row,
-  Col
-} from "react-bootstrap";
+import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
+import { StickerRequest } from "../../commons/types";
+import { Link, useNavigate } from "react-router-dom";
 
 export function RequestFormPage() {
+  const [brands, setBrands]: any = useState([]);
+  const [selectedBrand, setSelectedBrand]: any = useState(1);
+  const [models, setModels]: any = useState([]);
+  const navigate = useNavigate();
 
-const [brands, setBrands]: any = useState([]);
-const [selectedBrand, setSelectedBrand]: any = useState(1);
-const [models, setModels]: any = useState([]);
+  const [form, setForm] = useState({
+    operatorApprover: null,
+    operatorRequester: null,
+    brand: "",
+    model: "",
+    year: "",
+    licensePlate: "",
+    color: "",
+    documentFileName: "",
+    operator: null,
+    status: null,
+    requesterMessage: "",
+    approverMessage: "",
+    stickerNumber: "",
+  });
 
-useEffect(() => {
-  RequestService.getModels(selectedBrand)
-    .then((response: any) => {
+  useEffect(() => {
+    RequestService.getModels(selectedBrand).then((response: any) => {
       setModels(response.data);
-    })
-}, [selectedBrand]);
+    });
+  }, [selectedBrand]);
 
-useEffect(() => {
-  RequestService.getBrands()
-    .then((response: any) => {
+  useEffect(() => {
+    RequestService.getBrands().then((response: any) => {
       setBrands(response.data);
-    })
-},[]);
+    });
+  }, []);
 
+  const onClickAddRequest = () => {
+    // operatorRequester: Operator,
+
+    const request: StickerRequest = {
+      operatorApprover: null,
+      operatorRequester: null,
+      vehicle: {
+        brand: form.brand,
+        model: form.model,
+        year: form.year,
+        licensePlate: form.licensePlate,
+        color: form.color,
+        documentFileName: "",
+        operator: null,
+      },
+      status: form.status,
+      requesterMessage: form.requesterMessage,
+      approverMessage: form.approverMessage,
+      stickerNumber: 0,
+    };
+    console.log(request);
+
+    RequestService.save(request)
+      .then((response: any) => {
+        navigate("/");
+      })
+      .catch((apiError: { response: { data: { validationErrors: any } } }) => {
+        if (apiError.response.data && apiError.response.data.validationErrors) {
+        }
+      });
+  };
 
   return (
     <>
@@ -44,7 +81,7 @@ useEffect(() => {
                 <Card.Title as="h4">Solicitação de Adesivo</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form action="/stickerRequest">
                   <Row>
                     <Col className="pr-1" md="5">
                       <Form.Group>
@@ -58,20 +95,24 @@ useEffect(() => {
                     </Col>
                     <Col className="px-1" md="3">
                       <Form.Group>
-                      <label>Marca</label>
-                        <Form.Select name="brand"
-                        onChange={e => setSelectedBrand(e.target.value)}>
-                          {brands.map((brand: any) => 
-                          <option value={brand.value}>{brand.label}</option>)}
+                        <label>Marca</label>
+                        <Form.Select
+                          name="brand"
+                          onChange={(e) => setSelectedBrand(e.target.value)}
+                        >
+                          {brands.map((brand: any) => (
+                            <option value={brand.value}>{brand.label}</option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                      <label>Modelo</label>
+                        <label>Modelo</label>
                         <Form.Select name="model">
-                          {models.map((model: any) => 
-                          <option value={model.value}>{model.label}</option>)}
+                          {models.map((model: any) => (
+                            <option value={model.value}>{model.label}</option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -91,7 +132,7 @@ useEffect(() => {
                       <Form.Group>
                         <label>Placa</label>
                         <Form.Control
-                          name="Plate"
+                          name="licensePlate"
                           placeholder="Placa do veículo"
                           type="text"
                         ></Form.Control>
@@ -102,10 +143,7 @@ useEffect(() => {
                     <Col className="pl-1" md="12">
                       <Form.Group>
                         <label>Documentos</label>
-                        <Form.Control
-                          name="files"
-                          type="file"
-                        ></Form.Control>
+                        <Form.Control name="files" type="file"></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -125,7 +163,9 @@ useEffect(() => {
                   </Row>
                   <Button
                     className="btn-fill pull-right"
+                    // onClick={onClickAddRequest}
                     type="submit"
+                    formMethod="post"
                     variant="info"
                   >
                     Solicitar Adesivo
@@ -139,4 +179,4 @@ useEffect(() => {
       </Container>
     </>
   );
-};
+}

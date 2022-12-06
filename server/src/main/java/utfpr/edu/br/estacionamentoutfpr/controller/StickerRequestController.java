@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import utfpr.edu.br.estacionamentoutfpr.model.StickerRequest;
+import utfpr.edu.br.estacionamentoutfpr.model.Vehicle;
 import utfpr.edu.br.estacionamentoutfpr.service.CrudService;
 import utfpr.edu.br.estacionamentoutfpr.service.StickerRequestService;
 

@@ -23,3 +23,23 @@ export interface AuthenticatedUser {
 export interface Authorities {
   authority: string;
 }
+
+export interface Vehicle {
+   brand: String;
+   model: String;
+   year: String;
+   licensePlate: String;
+   color: String;
+   documentFileName: String;
+   operator: Operator | null;
+}
+
+export interface StickerRequest {
+   operatorRequester: Operator | null;
+   vehicle: Vehicle;
+   operatorApprover: Operator | null;
+   status: any;
+   requesterMessage: string;
+   approverMessage: string;
+   stickerNumber: number;
+}

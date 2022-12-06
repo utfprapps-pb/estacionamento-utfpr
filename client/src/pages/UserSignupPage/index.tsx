@@ -21,9 +21,13 @@ export function UserSignupPage() {
   const [passwordRepeatError, setPasswordRepeatError] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {    
+  useEffect(() => {
     if (form.password || form.passwordRepeat) {
-      setPasswordRepeatError( (form.password === form.passwordRepeat) ? "" : "As senhas devem ser iguais");
+      setPasswordRepeatError(
+        form.password === form.passwordRepeat
+          ? ""
+          : "As senhas devem ser iguais"
+      );
     }
   }, [form]);
 
@@ -62,7 +66,7 @@ export function UserSignupPage() {
         setPendingApiCall(false);
       });
   };
- 
+
   return (
     <main className="form-signin w-100 m-auto">
       <form>
@@ -121,7 +125,7 @@ export function UserSignupPage() {
             error={passwordRepeatError ? passwordRepeatError : ""}
           />
         </div>
-        
+
         <ButtonWithProgress
           className="w-100 btn btn-lg btn-primary mb-3"
           onClick={onClickSignup}
