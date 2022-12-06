@@ -35,6 +35,7 @@ export interface Vehicle {
 }
 
 export interface StickerRequest {
+   name: string;
    operatorRequester: Operator | null;
    vehicle: Vehicle;
    operatorApprover: Operator | null;

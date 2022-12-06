@@ -1,31 +1,14 @@
 import { useEffect, useState } from "react";
 import RequestService from "../../services/RequestService";
+import PropTypes from 'prop-types';
 // react-bootstrap components
 import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
-import { StickerRequest } from "../../commons/types";
-import { Link, useNavigate } from "react-router-dom";
 
-export function RequestFormPage() {
+const RequestFormPage = (props: any) => {
+  const { handleSubmit } = props;
   const [brands, setBrands]: any = useState([]);
   const [selectedBrand, setSelectedBrand]: any = useState(1);
   const [models, setModels]: any = useState([]);
-  const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    operatorApprover: null,
-    operatorRequester: null,
-    brand: "",
-    model: "",
-    year: "",
-    licensePlate: "",
-    color: "",
-    documentFileName: "",
-    operator: null,
-    status: null,
-    requesterMessage: "",
-    approverMessage: "",
-    stickerNumber: "",
-  });
 
   useEffect(() => {
     RequestService.getModels(selectedBrand).then((response: any) => {
@@ -39,38 +22,6 @@ export function RequestFormPage() {
     });
   }, []);
 
-  const onClickAddRequest = () => {
-    // operatorRequester: Operator,
-
-    const request: StickerRequest = {
-      operatorApprover: null,
-      operatorRequester: null,
-      vehicle: {
-        brand: form.brand,
-        model: form.model,
-        year: form.year,
-        licensePlate: form.licensePlate,
-        color: form.color,
-        documentFileName: "",
-        operator: null,
-      },
-      status: form.status,
-      requesterMessage: form.requesterMessage,
-      approverMessage: form.approverMessage,
-      stickerNumber: 0,
-    };
-    console.log(request);
-
-    RequestService.save(request)
-      .then((response: any) => {
-        navigate("/");
-      })
-      .catch((apiError: { response: { data: { validationErrors: any } } }) => {
-        if (apiError.response.data && apiError.response.data.validationErrors) {
-        }
-      });
-  };
-
   return (
     <>
       <Container fluid>
@@ -81,7 +32,7 @@ export function RequestFormPage() {
                 <Card.Title as="h4">Solicitação de Adesivo</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form action="/stickerRequest">
+                <Form onSubmit={handleSubmit}>
                   <Row>
                     <Col className="pr-1" md="5">
                       <Form.Group>
@@ -163,10 +114,7 @@ export function RequestFormPage() {
                   </Row>
                   <Button
                     className="btn-fill pull-right"
-                    // onClick={onClickAddRequest}
                     type="submit"
-                    formMethod="post"
-                    variant="info"
                   >
                     Solicitar Adesivo
                   </Button>
@@ -180,3 +128,9 @@ export function RequestFormPage() {
     </>
   );
 }
+
+RequestFormPage.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+}
+
+export default RequestFormPage;

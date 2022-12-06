@@ -17,6 +17,9 @@ public class StickerRequest {
     @Type(type = "uuid-char")
     private UUID id;
 
+    @NotNull(message = "O nome da solicitação não pode ser nulo")
+    private String name;
+
     @NotNull(message = "O usuário não pode ser nulo")
     @ManyToOne
     private Operator operatorRequester;
