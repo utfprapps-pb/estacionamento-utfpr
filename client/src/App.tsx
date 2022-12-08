@@ -8,6 +8,7 @@ import RequestFormPageHandler from "./pages/Request/FormHandler";
 import { RequireAuth } from "./components/RequireAuth";
 import { NotFound } from "./pages/NotFound";
 import { Unauthorized } from "./pages/Unauthorized";
+import Request from "./pages/Request/index"
 
 import { AuthContext } from './context/AuthContext'
 
@@ -33,7 +34,8 @@ export function App () {
 
         {/* protected routes - Roles: User and Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
-          <Route path='/solicitacoes' element={<RequestFormPageHandler />} />
+          <Route path='/solicitacoes/id' element={<RequestFormPageHandler />} />
+          <Route path='/solicitacoes' element={<Request />} />
           <Route path='/home' element={<Dashboard />} />
           <Route path='/' element={<Dashboard />} />
 
@@ -41,8 +43,8 @@ export function App () {
 
         {/* protected routes - Role: Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />} >
-          <Route path='/externos' element={<Dashboard />} />
           <Route path='/funcionarios' element={<Dashboard />} />
+          <Route path='/externos' element={<Dashboard />} />
         </Route>
         
         {/* catch all */}

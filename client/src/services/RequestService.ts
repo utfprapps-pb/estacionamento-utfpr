@@ -14,9 +14,14 @@ const save = (request: StickerRequest) => {
   return api.post(API_BASE_URL + "/stickerRequest", request);
 };
 
+const getRequests = () => {
+  return api.get(API_BASE_URL + "/stickerRequest");
+}
+
 const RequestService = {
   getBrands,
   getModels,
+  getRequests,
   save,
 }
 

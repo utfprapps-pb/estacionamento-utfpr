@@ -17,9 +17,9 @@ public class Vehicle {
     @Type(type = "uuid-char")
     private UUID id;
 
-    private String brand;
+    private int brand;
 
-    private String model;
+    private int model;
 
     private String year;
 

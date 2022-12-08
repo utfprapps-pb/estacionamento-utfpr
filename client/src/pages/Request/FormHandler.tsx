@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StickerRequest } from "../../commons/types";
 import RequestService from "../../services/RequestService";
@@ -6,8 +7,9 @@ import RequestFormPage from "./Form"
 const RequestFormPageHandler = () => {
 
     const navigate = useNavigate();
+
     
-    const handleSubmit = (values: any) => {
+    const handleSubmit = async (values: any) => {
         values.preventDefault();
         const request: StickerRequest = {
           name: values.target[0].value,
@@ -27,7 +29,6 @@ const RequestFormPageHandler = () => {
           approverMessage: "",
           stickerNumber: 0,
         };
-        console.log(request);
     
         RequestService.save(request)
           .then((response: any) => {

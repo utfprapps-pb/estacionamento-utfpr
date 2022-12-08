@@ -13,7 +13,6 @@ const RequestFormPage = (props: any) => {
 
   useEffect(() => {
     RequestService.getModels(selectedBrand).then((response: any) => {
-      console.log(response.data.anos);
       setModels(response.data.carBrandModelDTO);
       setYears(response.data.anos);
     });
