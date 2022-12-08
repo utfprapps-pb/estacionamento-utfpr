@@ -62,7 +62,7 @@ public class VehicleServiceImpl extends CrudServiceImpl<Vehicle, UUID> implement
     }
 
     @Override
-    public List<CarBrandModelDTO> getCarModels(int brandCode) {
+    public ModelDTO getCarModels(int brandCode) {
         ModelDTO models = new ModelDTO();
         CarBrandModelDTO model = new CarBrandModelDTO();
         HttpClient client = HttpClient.newHttpClient();
@@ -88,7 +88,7 @@ public class VehicleServiceImpl extends CrudServiceImpl<Vehicle, UUID> implement
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return models.getCarBrandModelDTO();
+        return models;
     }
 
 }

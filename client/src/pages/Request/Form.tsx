@@ -9,10 +9,13 @@ const RequestFormPage = (props: any) => {
   const [brands, setBrands]: any = useState([]);
   const [selectedBrand, setSelectedBrand]: any = useState(1);
   const [models, setModels]: any = useState([]);
+  const [years, setYears]: any = useState([]);
 
   useEffect(() => {
     RequestService.getModels(selectedBrand).then((response: any) => {
-      setModels(response.data);
+      console.log(response.data.anos);
+      setModels(response.data.carBrandModelDTO);
+      setYears(response.data.anos);
     });
   }, [selectedBrand]);
 
@@ -26,7 +29,7 @@ const RequestFormPage = (props: any) => {
     <>
       <Container fluid>
         <Row>
-          <Col md="10">
+          <Col md="12">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Solicitação de Adesivo</Card.Title>
@@ -62,14 +65,24 @@ const RequestFormPage = (props: any) => {
                         <label>Modelo</label>
                         <Form.Select name="model">
                           {models.map((model: any) => (
-                            <option value={model.value}>{model.label}</option>
-                          ))}
+                              <option value={model.value}>{model.label}</option>
+                            ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="pr-1" md="6">
+                    <Col className="pl-1" md="5">
+                      <Form.Group>
+                        <label>Placa</label>
+                        <Form.Control
+                          name="licensePlate"
+                          placeholder="Placa do veículo"
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="3">
                       <Form.Group>
                         <label>Cor</label>
                         <Form.Control
@@ -79,14 +92,14 @@ const RequestFormPage = (props: any) => {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="6">
+                    <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>Placa</label>
-                        <Form.Control
-                          name="licensePlate"
-                          placeholder="Placa do veículo"
-                          type="text"
-                        ></Form.Control>
+                        <label>Ano</label>
+                        <Form.Select name="year">
+                          {years.map((year: any) => (
+                              <option value={year.value}>{year.label}</option>
+                            ))}
+                        </Form.Select>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -99,7 +112,7 @@ const RequestFormPage = (props: any) => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="pb-2" md="12">
+                    <Col md="12">
                       <Form.Group>
                         <label>Observação</label>
                         <Form.Control
@@ -113,7 +126,7 @@ const RequestFormPage = (props: any) => {
                     </Col>
                   </Row>
                   <Button
-                    className="btn-fill pull-right"
+                    className="btn-fill pull-right mt-2"
                     type="submit"
                   >
                     Solicitar Adesivo

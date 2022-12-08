@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { StickerRequest } from "../../commons/types";
 import RequestService from "../../services/RequestService";
-import RequestFormPage from "./form"
+import RequestFormPage from "./Form"
 
 const RequestFormPageHandler = () => {
 
@@ -16,14 +16,14 @@ const RequestFormPageHandler = () => {
           vehicle: {
             brand: values.target[1].value,
             model: values.target[2].value,
-            year: "",
-            licensePlate: values.target[4].value,
-            color: values.target[3].value,
+            year: values.target[5].value,
+            licensePlate: values.target[3].value,
+            color: values.target[4].value,
             documentFileName: "",
             operator: null,
           },
-          status: "Em Análise",
-          requesterMessage: values.target[6].value,
+          status: "IN_ANALYSIS",
+          requesterMessage: values.target[7].value,
           approverMessage: "",
           stickerNumber: 0,
         };
