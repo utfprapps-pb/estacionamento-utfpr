@@ -1,8 +1,8 @@
-import { Operator, OperatorLogin } from "../commons/types";
+import { Operator, OperatorLogin, OperatorSignup } from "../commons/types";
 import api from "axios";
 import { API_BASE_URL } from "../constants";
 
-const signup = (operator: Operator) => {
+const signup = (operator: OperatorSignup) => {
   return api.post(API_BASE_URL + "/users", operator);
 };
 

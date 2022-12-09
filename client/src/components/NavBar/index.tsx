@@ -5,12 +5,15 @@ import logo from "../../assets/utfpr-logo.png";
 
 export function NavBar() {
   const { authenticated, handleLogout } = useContext(AuthContext);
+
+  const { authenticatedUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const onClickLogout = () => {
     handleLogout();
-    navigate('login');
-  }
+    navigate("login");
+  };
 
   return (
     <div className="bg-white shadow-sm mb-2">
@@ -20,67 +23,57 @@ export function NavBar() {
             <img src={logo} width="60" alt="UTFPR" />
           </Link>
           {authenticated && (
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <NavLink
-                to="/"
-                className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/solicitacoes"
-                className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Solicitacoes
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/externos"
-                className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Externo
-              </NavLink>
-            </li>
+            <ul className="navbar-nav me-auto mb-2 mb-md-0">
+              <li className="nav-item">
+                <NavLink
+                  to="/"
+                  className={(navData) =>
+                    navData.isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  to="/solicitacoes"
+                  className={(navData) =>
+                    navData.isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Solicitacoes
+                </NavLink>
+              </li>
+              {authenticatedUser?.authorities.some(it => it.authority == "ROLE_ADMIN") && <li className="nav-item">
+                <NavLink
+                  to="/usuarios"
+                  className={(navData) =>
+                    navData.isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Perfil
+                </NavLink>
+              </li>
+              }
 
-            <li className="nav-item">
-              <NavLink
-                to="/funcionarios"
-                className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }
-              >
-              Funcionarios
-              </NavLink>
-            </li>
+              <li className="nav-item">
+                <NavLink
+                  to="/infracao"
+                  className={(navData) =>
+                    navData.isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Justificar Infração
+                </NavLink>
+              </li>
 
-            <li className="nav-item">
-              <NavLink
-                to="/infracao"
-                className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }
-              >
-              Justificar Infração
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
-              <button className="btn btn-light" onClick={onClickLogout}>
-                &times; Sair
-              </button>
-            </li>
-          </ul>)
-          }
+              <li className="nav-item">
+                <button className="btn btn-light" onClick={onClickLogout}>
+                  &times; Sair
+                </button>
+              </li>
+            </ul>
+          )}
         </nav>
       </div>
     </div>

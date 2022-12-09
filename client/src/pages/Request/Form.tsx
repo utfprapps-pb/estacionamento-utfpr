@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RequestService from "../../services/RequestService";
 import PropTypes from 'prop-types';
 // react-bootstrap components
 import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
+import { AuthContext } from "../../context/AuthContext";
 
 const RequestFormPage = (props: any) => {
   const { handleSubmit } = props;
@@ -11,6 +12,9 @@ const RequestFormPage = (props: any) => {
   const [models, setModels]: any = useState([]);
   const [years, setYears]: any = useState([]);
 
+  const { authenticatedUser } = useContext(AuthContext);
+  var hasAdminPermission = false;
+
   useEffect(() => {
     RequestService.getModels(selectedBrand).then((response: any) => {
       setModels(response.data.carBrandModelDTO);
@@ -18,11 +22,22 @@ const RequestFormPage = (props: any) => {
     });
   }, [selectedBrand]);
 
+  
+  function checkAdminPermission(){
+    hasAdminPermission = authenticatedUser?.authorities.some(it => it.authority == "ROLE_ADMIN") ?? false;
+  }
+
   useEffect(() => {
+    checkAdminPermission();
+
     RequestService.getBrands().then((response: any) => {
       setBrands(response.data);
     });
   }, []);
+
+    
+
+
 
   return (
     <>

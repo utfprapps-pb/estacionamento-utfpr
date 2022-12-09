@@ -3,11 +3,28 @@ export interface OperatorLogin {
   password: string;
 }
 
-export interface Operator {
+
+export interface OperatorSignup {
   name: string;
   username: string;
   password: string;
 }
+
+export interface Operator {
+  id:string;
+  name: string;
+  username: string;
+  password: string;
+  surename: String;
+  email: String;
+  address: String;
+  complement: String;
+  zipcode: String;
+  neighborhood: String;
+  city: String;
+  documentFileName: String;
+}
+
 
 export interface AuthenticationResponse {
   token: string;

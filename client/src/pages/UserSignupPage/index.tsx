@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Operator } from "../../commons/types";
+import { Operator, OperatorSignup } from "../../commons/types";
 import { ButtonWithProgress } from "../../components/ButtonWithProgress";
 import { Input } from "../../components/Input";
 import AuthService from "../../services/AuthService";
@@ -48,7 +48,7 @@ export function UserSignupPage() {
   };
 
   const onClickSignup = () => {
-    const operator: Operator = {
+    const operator: OperatorSignup = {
       name: form.name,
       username: form.username,
       password: form.password,

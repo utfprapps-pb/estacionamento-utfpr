@@ -10,6 +10,9 @@ import { NotFound } from "./pages/NotFound";
 import { Unauthorized } from "./pages/Unauthorized";
 
 import { AuthContext } from './context/AuthContext'
+import Request from "./pages/Request";
+import OperatorCrud from "./pages/OperatorPage/operatorCrudPage";
+import OperatorList from "./pages/OperatorPage/operatorListPage";
 
 const ROLES = {
   User: 'ROLE_USER',
@@ -42,7 +45,9 @@ export function App () {
 
         {/* protected routes - Role: Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />} >
-          <Route path='/perfil' element={<Dashboard />} />
+          <Route path='/usuarios/*' element={<OperatorCrud />} />
+          <Route path='/usuarios' element={<OperatorList />} />
+
         </Route>
         
         {/* catch all */}

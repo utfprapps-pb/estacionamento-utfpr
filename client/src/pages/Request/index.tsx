@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // react-bootstrap components
 import {
@@ -13,11 +13,17 @@ import {
   Col,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import RequestService from "../../services/RequestService";
 
 const Request = () => {
 
     const [requests, setRequests]: any = useState([]);
+
+    const { authenticatedUser } = useContext(AuthContext);
+    var hasAdminPermission = false;
+
+  
     const navigate = useNavigate();
 
     const updateStatus = (values: any) => {
@@ -41,8 +47,14 @@ const Request = () => {
         });
         return values;
     }
+    
+    function checkAdminPermission(){
+        hasAdminPermission = authenticatedUser?.authorities.some(it => it.authority == "ROLE_ADMIN") ?? false;
+    }
 
     useEffect(() => {
+        checkAdminPermission();
+
         /*setRequests([])
         RequestService.getRequests()
             .then((res: any) => {
