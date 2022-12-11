@@ -39,14 +39,17 @@ export function App () {
           <Route path='/solicitacoes/id' element={<RequestFormPageHandler />} />
           <Route path='/solicitacoes' element={<Request />} />
           <Route path='/home' element={<Dashboard />} />
-          <Route path='/' element={<Dashboard />} />
+       
+          <Route path='/usuarios/*' element={<OperatorCrud />} />
+          <Route path='/usuarios' element={<OperatorList />} />
 
+          <Route path='/' element={<Dashboard />} />
+       
         </Route>
 
         {/* protected routes - Role: Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />} >
-          <Route path='/usuarios/*' element={<OperatorCrud />} />
-          <Route path='/usuarios' element={<OperatorList />} />
+        
 
         </Route>
         

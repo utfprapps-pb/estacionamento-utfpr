@@ -38,7 +38,7 @@ public class AuthController {
 
     public AuthController(GoogleTokenVerifier googleTokenVerifier, AuthUserService authUserService,
                           OperatorService operatorService,
-                          OperatorRepository operatorRepository,
+                          OperatorRepository  operatorRepository,
                           AuthorityRepository authorityRepository) {
         this.googleTokenVerifier = googleTokenVerifier;
         this.authUserService = authUserService;

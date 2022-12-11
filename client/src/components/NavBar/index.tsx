@@ -44,7 +44,10 @@ export function NavBar() {
                   Solicitacoes
                 </NavLink>
               </li>
-              {authenticatedUser?.authorities.some(it => it.authority == "ROLE_ADMIN") && <li className="nav-item">
+              
+              {authenticatedUser?.authorities.some(it => it.authority == "ROLE_ADMIN") && true}
+              
+              <li className="nav-item">
                 <NavLink
                   to="/usuarios"
                   className={(navData) =>
@@ -54,7 +57,6 @@ export function NavBar() {
                   Perfil
                 </NavLink>
               </li>
-              }
 
               <li className="nav-item">
                 <NavLink
