@@ -36,7 +36,7 @@ export function App () {
 
         {/* protected routes - Roles: User and Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
-          <Route path='/solicitacoes/id' element={<RequestFormPageHandler />} />
+          <Route path='/solicitacoes/:id' element={<RequestFormPageHandler />} />
           <Route path='/solicitacoes' element={<Request />} />
           <Route path='/home' element={<Dashboard />} />
        

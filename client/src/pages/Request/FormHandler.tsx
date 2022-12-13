@@ -9,9 +9,10 @@ const RequestFormPageHandler = () => {
     const navigate = useNavigate();
 
     
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: any, requestId: string) => {
         values.preventDefault();
         const request: StickerRequest = {
+          id: requestId =! '0' ? requestId : "",
           name: values.target[0].value,
           operatorApprover: null,
           operatorRequester: null,

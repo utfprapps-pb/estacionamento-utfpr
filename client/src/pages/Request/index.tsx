@@ -23,7 +23,6 @@ const Request = () => {
     const { authenticatedUser } = useContext(AuthContext);
     var hasAdminPermission = false;
 
-  
     const navigate = useNavigate();
 
     const updateStatus = (values: any) => {
@@ -52,6 +51,25 @@ const Request = () => {
         hasAdminPermission = authenticatedUser?.authorities.some(it => it.authority == "ROLE_ADMIN") ?? false;
     }
 
+    const loadRequests = () => {
+        RequestService.getRequests()
+            .then((response: any) => {
+                const requests = updateStatus(response.data);
+                setRequests(requests);
+            });
+    }
+
+    const editClickHandler = (id: string) => {
+        navigate(`/solicitacoes/${id}`);
+    };
+
+    const removeClickHandler = (id: string) => {
+        RequestService.remove(id)
+            .then(() => {
+                loadRequests();
+            })
+    }
+
     useEffect(() => {
         checkAdminPermission();
 
@@ -74,11 +92,7 @@ const Request = () => {
                 });
             });*/
 
-        RequestService.getRequests()
-            .then((response: any) => {
-                const requests = updateStatus(response.data);
-                setRequests(requests);
-            });
+        loadRequests();
 
     }, []);
     
@@ -90,7 +104,7 @@ const Request = () => {
                 <Card className="strpied-tabled-with-hover">
                 <Card.Header>
                     <Card.Title className="d-flex justify-content-between" as="h4">Solicitações de adesivos 
-                    <Button className="btn-fill pull-right" onClick={() => navigate('id')}>
+                    <Button className="btn-fill pull-right" onClick={() => navigate('0')}>
                         Solicitar
                     </Button>
                     </Card.Title>
@@ -116,7 +130,11 @@ const Request = () => {
                                 <td>{req.vehicle.licensePlate}</td>
                                 <td>{req.vehicle.model}</td>
                                 <td>{req.status}</td>
-                                <td></td>
+                                <td>
+                                    <Button variant="secondary" onClick={() => editClickHandler(req.id)}>Editar</Button>
+                                    <Button variant="danger" onClick={() => removeClickHandler(req.id)}>Excluir</Button>
+                                    <Button variant="success" onClick={() => {}}>Revisar</Button>
+                                </td>
                                 </tr>
                             )
                         })}

@@ -14,15 +14,25 @@ const save = (request: StickerRequest) => {
   return api.post(API_BASE_URL + "/stickerRequest", request);
 };
 
+const getRequest = (requestId: string) => {
+  return api.get(API_BASE_URL + `/stickerRequest/${requestId}`);
+};
+
 const getRequests = () => {
   return api.get(API_BASE_URL + "/stickerRequest");
-}
+};
+
+const remove = (requestId: string) => {
+  return api.delete(API_BASE_URL +  `/stickerRequest/${requestId}`)
+};
 
 const RequestService = {
   getBrands,
   getModels,
   getRequests,
   save,
+  getRequest,
+  remove,
 }
 
 export default RequestService;
