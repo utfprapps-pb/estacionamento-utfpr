@@ -3,7 +3,6 @@ export interface OperatorLogin {
   password: string;
 }
 
-
 export interface OperatorSignup {
   name: string;
   username: string;
@@ -11,7 +10,7 @@ export interface OperatorSignup {
 }
 
 export interface Operator {
-  id:string;
+  id: string;
   name: string;
   username: string;
   password: string;
@@ -24,7 +23,6 @@ export interface Operator {
   city: String;
   documentFileName: String;
 }
-
 
 export interface AuthenticationResponse {
   token: string;
@@ -42,23 +40,24 @@ export interface Authorities {
 }
 
 export interface Vehicle {
-   brand: String;
-   model: String;
-   year: String;
-   licensePlate: String;
-   color: String;
-   documentFileName: String;
-   operator: Operator | null;
+  brand: String;
+  model: String;
+  year: String;
+  licensePlate: String;
+  color: String;
+  documentFileName: String;
+  operator: Operator | null;
+  brandName: string | null;
 }
 
 export interface StickerRequest {
-   id?: string;
-   name: string;
-   operatorRequester: Operator | null;
-   vehicle: Vehicle;
-   operatorApprover: Operator | null;
-   status: any;
-   requesterMessage: string;
-   approverMessage: string;
-   stickerNumber: number;
+  id?: string;
+  name: string;
+  operatorRequester: Operator | null;
+  vehicle: Vehicle;
+  operatorApprover: Operator | null;
+  status: any;
+  requesterMessage: string;
+  approverMessage: string;
+  stickerNumber: number;
 }

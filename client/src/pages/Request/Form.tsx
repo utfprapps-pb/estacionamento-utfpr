@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import RequestService from "../../services/RequestService";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 // react-bootstrap components
 import { Button, Card, Form, Container, Row, Col } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
@@ -20,7 +20,7 @@ const RequestFormPage = (props: any) => {
       licensePlate: "",
       color: "",
     },
-    requesterMessage: ""
+    requesterMessage: "",
   });
   const navigate = useNavigate();
   const requestId: string = location.pathname.split("/").pop() ?? "";
@@ -28,37 +28,38 @@ const RequestFormPage = (props: any) => {
   var hasAdminPermission = false;
 
   useEffect(() => {
-      RequestService.getModels(formData.vehicle.brand).then((response: any) => {
-          setModels(response.data.carBrandModelDTO);
-          setYears(response.data.anos);
-      });
+    RequestService.getModels(formData.vehicle.brand).then((response: any) => {
+      setModels(response.data.carBrandModelDTO);
+      setYears(response.data.anos);
+    });
   }, [formData.vehicle.brand]);
 
-  
-  function checkAdminPermission(){
-    hasAdminPermission = authenticatedUser?.authorities.some(it => it.authority == "ROLE_ADMIN") ?? false;
+  function checkAdminPermission() {
+    hasAdminPermission =
+      authenticatedUser?.authorities.some(
+        (it) => it.authority == "ROLE_ADMIN"
+      ) ?? false;
   }
 
   const handleInputChange = (event: any) => {
     console.log(event.target);
     const { name, value } = event.target;
-    if (name != 'name' && name != 'requesterMessage') {
-      const vehicle = {...formData.vehicle, [name]: value};
-      setFormData({ ...formData, ['vehicle']: vehicle });
+    if (name != "name" && name != "requesterMessage") {
+      const vehicle = { ...formData.vehicle, [name]: value };
+      setFormData({ ...formData, ["vehicle"]: vehicle });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
   const backClickHandler = () => {
-    navigate('/solicitacoes')
-  }
+    navigate("/solicitacoes");
+  };
 
   useEffect(() => {
     console.log(requestId);
-    if (requestId != '0') {
-    RequestService.getRequest(requestId)
-      .then((response: any) => {
+    if (requestId != "0") {
+      RequestService.getRequest(requestId).then((response: any) => {
         const request = {
           id: response.data.id,
           name: response.data.name,
@@ -69,7 +70,7 @@ const RequestFormPage = (props: any) => {
             licensePlate: response.data.vehicle.licensePlate,
             color: response.data.vehicle.color,
           },
-          requesterMessage: response.data.requesterMessage
+          requesterMessage: response.data.requesterMessage,
         };
         console.log(request);
         setFormData(request);
@@ -81,11 +82,10 @@ const RequestFormPage = (props: any) => {
         year: "",
         licensePlate: "",
         color: "",
-      }
-      setFormData({...formData, ['vehicle']: vehicle})
+      };
+      setFormData({ ...formData, ["vehicle"]: vehicle });
     }
   }, [requestId]);
-
 
   useEffect(() => {
     checkAdminPermission();
@@ -93,12 +93,7 @@ const RequestFormPage = (props: any) => {
     RequestService.getBrands().then((response: any) => {
       setBrands(response.data);
     });
-
   }, []);
-
-    
-
-
 
   return (
     <>
@@ -141,13 +136,15 @@ const RequestFormPage = (props: any) => {
                     <Col className="pl-1" md="4">
                       <Form.Group>
                         <label>Modelo</label>
-                        <Form.Select 
-                          name="model" 
+                        <Form.Select
+                          name="model"
+                          id="modelo"
                           value={formData.vehicle.model}
-                          onChange={handleInputChange}>
+                          onChange={handleInputChange}
+                        >
                           {models.map((model: any) => (
-                              <option value={model.value}>{model.label}</option>
-                            ))}
+                            <option value={model.value}>{model.label}</option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -161,7 +158,8 @@ const RequestFormPage = (props: any) => {
                           placeholder="Placa do veículo"
                           type="text"
                           value={formData.vehicle.licensePlate}
-                          onChange={handleInputChange} />
+                          onChange={handleInputChange}
+                        />
                       </Form.Group>
                     </Col>
                     <Col className="pr-1" md="3">
@@ -179,13 +177,14 @@ const RequestFormPage = (props: any) => {
                     <Col className="pl-1" md="4">
                       <Form.Group>
                         <label>Ano</label>
-                        <Form.Select 
+                        <Form.Select
                           name="year"
                           value={formData.vehicle.year}
-                          onChange={handleInputChange}>
+                          onChange={handleInputChange}
+                        >
                           {years.map((year: any) => (
-                              <option value={year.value}>{year.label}</option>
-                            ))}
+                            <option value={year.value}>{year.label}</option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -220,10 +219,7 @@ const RequestFormPage = (props: any) => {
                   >
                     Voltar
                   </Button>
-                  <Button
-                    className="btn-fill pull-right"
-                    type="submit"
-                  >
+                  <Button className="btn-fill pull-right" type="submit">
                     Solicitar Adesivo
                   </Button>
                   <div className="clearfix"></div>
@@ -235,10 +231,10 @@ const RequestFormPage = (props: any) => {
       </Container>
     </>
   );
-}
+};
 
 RequestFormPage.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-}
+};
 
 export default RequestFormPage;

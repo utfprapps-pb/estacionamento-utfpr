@@ -104,7 +104,7 @@ export function UserSignupPage() {
             name="password"
             label="Informe a senha"
             className="form-control"
-            type="text"
+            type="password"
             placeholder="Informe a senha"
             onChange={onChange}
             value={form.password}
