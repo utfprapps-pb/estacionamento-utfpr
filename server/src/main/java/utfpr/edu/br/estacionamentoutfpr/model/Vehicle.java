@@ -32,4 +32,6 @@ public class Vehicle {
 
     @ManyToOne
     private Operator operator;
+
+    private String brandName;
 }

@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StickerRequest } from "../../commons/types";
 import RequestService from "../../services/RequestService";
-import RequestFormPage from "./Form";
+import RequestReviewFormPage from "./FormReview";
 
-const RequestFormPageHandler = () => {
+const RequestReviewFormPageHandler = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (values: any, requestId: string) => {
@@ -16,7 +15,7 @@ const RequestFormPageHandler = () => {
     console.log(brandSelectedName);
 
     const request: StickerRequest = {
-      id: (requestId = !"0" ? requestId : ""),
+      id: (requestId != "0" ? requestId : ""),
       name: values.target[0].value,
       operatorApprover: null,
       operatorRequester: null,
@@ -30,9 +29,9 @@ const RequestFormPageHandler = () => {
         documentFileName: "",
         operator: null,
       },
-      status: "IN_ANALYSIS",
+      status: values.target[8].value,
       requesterMessage: values.target[7].value,
-      approverMessage: "",
+      approverMessage: values.target[9].value,
       stickerNumber: 0,
     };
 
@@ -47,9 +46,9 @@ const RequestFormPageHandler = () => {
   };
   return (
     <>
-      <RequestFormPage handleSubmit={handleSubmit} />
+      <RequestReviewFormPage handleSubmit={handleSubmit} />
     </>
   );
 };
 
-export default RequestFormPageHandler;
+export default RequestReviewFormPageHandler;

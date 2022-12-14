@@ -15,7 +15,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import Request from "../Request";
+import Request from "../RequestPage";
 
 export function Dashboard() {
   return (

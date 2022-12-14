@@ -4,15 +4,17 @@ import { Layout } from "./pages/Layout";
 import { LoginPage } from "./pages/LoginPage";
 import { UserSignupPage } from "./pages/UserSignupPage";
 import { Dashboard } from "./pages/HomePage";
-import RequestFormPageHandler from "./pages/Request/FormHandler";
+import RequestFormPageHandler from "./pages/RequestPage/FormHandler";
 import { RequireAuth } from "./components/RequireAuth";
 import { NotFound } from "./pages/NotFound";
 import { Unauthorized } from "./pages/Unauthorized";
 
 import { AuthContext } from './context/AuthContext'
-import Request from "./pages/Request";
+import Request from "./pages/RequestPage";
 import OperatorCrud from "./pages/OperatorPage/operatorCrudPage";
 import OperatorList from "./pages/OperatorPage/operatorListPage";
+import RequestReviewFormPage from "./pages/RequestPage/FormReview";
+import RequestReviewFormPageHandler from "./pages/RequestPage/FormHandlerReview";
 
 const ROLES = {
   User: 'ROLE_USER',
@@ -49,7 +51,7 @@ export function App () {
 
         {/* protected routes - Role: Admin */}
         <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />} >
-        
+        <Route path='/solicitacoes/revisar/:id' element={<RequestReviewFormPageHandler />} />
 
         </Route>
         

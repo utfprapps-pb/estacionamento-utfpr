@@ -61,7 +61,7 @@ const Request = () => {
   };
 
   const editClickHandler = (id: string) => {
-    navigate(`/solicitacoes/${id}`);
+    navigate(`${id}`);
   };
 
   const removeClickHandler = (id: string) => {
@@ -69,6 +69,10 @@ const Request = () => {
       loadRequests();
     });
   };
+
+  const reviewClickHandler = (id: string) => {
+    navigate(`revisar/${id}`);
+  }
 
   useEffect(() => {
     checkAdminPermission();
@@ -148,8 +152,8 @@ const Request = () => {
                               >
                                 Excluir
                               </Button>
-                              <Button variant="success" onClick={() => {}}>
-                                Revisar
+                              <Button variant="success" onClick={() => reviewClickHandler(req.id)}>
+                                Auditoria
                               </Button>
                             </td>
                           </tr>
