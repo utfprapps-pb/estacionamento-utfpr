@@ -23,6 +23,7 @@ const RequestFormPage = (props: any) => {
     requesterMessage: "",
     approverMessage: "",
     status: "",
+    file: null,
   });
   const navigate = useNavigate();
   const requestId: string = location.pathname.split("/").pop() ?? "";
@@ -49,6 +50,9 @@ const RequestFormPage = (props: any) => {
     if (name != "name" && name != "requesterMessage") {
       const vehicle = { ...formData.vehicle, [name]: value };
       setFormData({ ...formData, ["vehicle"]: vehicle });
+    } else if (name == "file") {  
+      const files = event.target.files ? event.target.files[0] : null;
+      setFormData({ ...formData, ["file"]: files});
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -75,6 +79,7 @@ const RequestFormPage = (props: any) => {
           requesterMessage: response.data.requesterMessage,
           approverMessage: response.data.approverMessage,
           status: response.data.status,
+          file: null,
         };
         console.log(request);
         setFormData(request);

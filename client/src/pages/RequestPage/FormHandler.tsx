@@ -40,9 +40,9 @@ const RequestFormPageHandler = () => {
         const stickerRequest: StickerRequest = {
           ...response.data,
         }
-        console.log(values.target[6].value);
-        const formData = new FormData();    
-        formData.append('file', values.target[6].value);
+        console.log(values.target[6].files[0]);
+        const formData = new FormData();
+        formData.append('file', values.target[6].files[0]);
         const blob = new Blob([JSON.stringify(stickerRequest)], {
           type: 'application/json'
         });

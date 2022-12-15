@@ -47,6 +47,7 @@ public class StickerRequestFileController extends CrudController<StickerRequestF
         if (fileType != null) {
             FileResponse fileResponse = minioService.putObject(file, "commons",
                     fileType);
+
             entity.setFileName(fileResponse.getFilename());
             entity.setContentType(fileResponse.getContentType());
             entity.setStickerRequest(stickerRequest);
