@@ -26,6 +26,10 @@ const remove = (requestId: string) => {
   return api.delete(API_BASE_URL +  `/stickerRequest/${requestId}`)
 };
 
+const uploadFile = (formData: FormData) => {
+  return api.post("/stickerRequestFile/upload", formData);
+}
+
 const RequestService = {
   getBrands,
   getModels,
@@ -33,6 +37,7 @@ const RequestService = {
   save,
   getRequest,
   remove,
+  uploadFile,
 }
 
 export default RequestService;

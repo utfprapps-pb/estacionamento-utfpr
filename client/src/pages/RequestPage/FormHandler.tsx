@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StickerRequest } from "../../commons/types";
 import RequestService from "../../services/RequestService";
@@ -34,15 +35,34 @@ const RequestFormPageHandler = () => {
       approverMessage: "",
       stickerNumber: 0,
     };
-
     RequestService.save(request)
       .then((response: any) => {
         navigate("/");
+   
+        const formData = new FormData();    
+        formData.append('file', values.target[6].value);
+        const blob = new Blob([JSON.stringify(response.data)], {
+          type: 'application/json'
+        });
+        formData.append('request', blob);
+        RequestService.uploadFile(formData)
+          .then((response) => {
+            console.log('salvou o arquivo');
+            navigate("/solicitacoes");
+          })
+          .catch((error) => {
+            if (error.response.data && error.response.data.validationErrors) {
+              console.log(error.response.data.validationErrors);
+            } else {
+              console.log("Falha ao salvar o RequestFile.");
+            }
+          });
       })
       .catch((apiError: { response: { data: { validationErrors: any } } }) => {
         if (apiError.response.data && apiError.response.data.validationErrors) {
         }
       });
+    
   };
   return (
     <>

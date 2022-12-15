@@ -22,4 +22,6 @@ public class StickerRequestFile {
     private StickerRequest stickerRequest;
 
     private String fileName;
+
+    private String contentType;
 }
