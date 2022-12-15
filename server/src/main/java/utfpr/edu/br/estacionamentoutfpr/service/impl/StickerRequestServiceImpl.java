@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import utfpr.edu.br.estacionamentoutfpr.model.Operator;
 import utfpr.edu.br.estacionamentoutfpr.model.RequestStatus;
 import utfpr.edu.br.estacionamentoutfpr.model.StickerRequest;
 import utfpr.edu.br.estacionamentoutfpr.repository.AuthorityRepository;
@@ -53,7 +54,7 @@ public class StickerRequestServiceImpl extends CrudServiceImpl<StickerRequest, U
         entity.setVehicle(vehicleService.save(entity.getVehicle()));
 
         if(entity.getId() == null){
-            entity.setOperatorRequester(authUserService.getOperatorLogged());
+
         }
         return super.save(entity);
     }
