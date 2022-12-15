@@ -27,7 +27,7 @@ const remove = (requestId: string) => {
 };
 
 const uploadFile = (formData: FormData) => {
-  return api.post("/stickerRequestFile/upload", formData);
+  return api.post(API_BASE_URL + "/stickerRequestFile/upload", formData);
 }
 
 const RequestService = {

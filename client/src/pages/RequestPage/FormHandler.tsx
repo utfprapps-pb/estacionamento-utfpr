@@ -13,7 +13,6 @@ const RequestFormPageHandler = () => {
     var select = document!.querySelector("select");
     var option = select!.children[select!.selectedIndex];
     var brandSelectedName = option.textContent;
-    console.log(brandSelectedName);
 
     const request: StickerRequest = {
       id: (requestId != "0" ? requestId : ""),
@@ -38,13 +37,16 @@ const RequestFormPageHandler = () => {
     RequestService.save(request)
       .then((response: any) => {
         navigate("/");
-   
+        const stickerRequest: StickerRequest = {
+          ...response.data,
+        }
+        console.log(stickerRequest);
         const formData = new FormData();    
         formData.append('file', values.target[6].value);
-        const blob = new Blob([JSON.stringify(response.data)], {
+        const blob = new Blob([JSON.stringify(stickerRequest)], {
           type: 'application/json'
         });
-        formData.append('request', blob);
+        formData.append('stickerRequest', blob);
         RequestService.uploadFile(formData)
           .then((response) => {
             console.log('salvou o arquivo');
