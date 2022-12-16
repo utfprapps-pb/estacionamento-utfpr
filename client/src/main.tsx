@@ -13,13 +13,13 @@ import { AuthProvider } from "./context/AuthContext";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-        <AuthProvider>
-          <GoogleOAuthProvider clientId="310109923674-la5thl4s4t0b2ajp6acdhq7tra74dn31.apps.googleusercontent.com">
-            <Routes>
-              <Route path="/*" element={<App />} />
-            </Routes>
-          </GoogleOAuthProvider>
-        </AuthProvider>
+      <AuthProvider>
+        <GoogleOAuthProvider clientId="585935989990-but6vkp5ou7qplriknsupkq5u9spgcp7.apps.googleusercontent.com">
+          <Routes>
+            <Route path="/*" element={<App />} />
+          </Routes>
+        </GoogleOAuthProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

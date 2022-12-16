@@ -32,10 +32,12 @@ const RequestReviewFormPage = (props: any) => {
   var hasAdminPermission = false;
 
   useEffect(() => {
-    RequestService.getModels(formData.vehicle.brand).then((response: any) => {
-      setModels(response.data.carBrandModelDTO);
-      setYears(response.data.anos);
-    });
+    if (formData.vehicle.brand > 0) {
+      RequestService.getModels(formData.vehicle.brand).then((response: any) => {
+        setModels(response.data.carBrandModelDTO);
+        setYears(response.data.anos);
+      });
+    }
   }, [formData.vehicle.brand]);
 
   function checkAdminPermission() {
@@ -51,13 +53,17 @@ const RequestReviewFormPage = (props: any) => {
     } else {
       setDisabled(false);
     }
-  }
+  };
 
   const handleInputChange = (event: any) => {
     console.log(event.target);
     const { name, value } = event.target;
-    if (name != "name" && name != "requesterMessage" && 
-        name != "approverMessage" && name != "status") {
+    if (
+      name != "name" &&
+      name != "requesterMessage" &&
+      name != "approverMessage" &&
+      name != "status"
+    ) {
       const vehicle = { ...formData.vehicle, [name]: value };
       setFormData({ ...formData, ["vehicle"]: vehicle });
     } else {
@@ -214,7 +220,11 @@ const RequestReviewFormPage = (props: any) => {
                     <Col className="pl-1" md="12">
                       <Form.Group>
                         <label>Documentos</label>
-                        <Form.Control name="files" type="file" disabled={disabled}></Form.Control>
+                        <Form.Control
+                          name="files"
+                          type="file"
+                          disabled={disabled}
+                        ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -236,7 +246,7 @@ const RequestReviewFormPage = (props: any) => {
                     </Col>
                   </Row>
                   <Row>
-                  <Col className="pl-1" md="12">
+                    <Col className="pl-1" md="12">
                       <Form.Group>
                         <label>Situação</label>
                         <Form.Select
@@ -244,9 +254,15 @@ const RequestReviewFormPage = (props: any) => {
                           onChange={handleInputChange}
                           value={formData.status}
                         >
-                          <option value={'APPROVED'}>{REQUEST_STATUS.APPROVED}</option>
-                          <option value={'INCOMPLETE'}>{REQUEST_STATUS.INCOMPLETE}</option>
-                          <option value={'DENIED'}>{REQUEST_STATUS.DENIED}</option>
+                          <option value={"APPROVED"}>
+                            {REQUEST_STATUS.APPROVED}
+                          </option>
+                          <option value={"INCOMPLETE"}>
+                            {REQUEST_STATUS.INCOMPLETE}
+                          </option>
+                          <option value={"DENIED"}>
+                            {REQUEST_STATUS.DENIED}
+                          </option>
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -273,19 +289,22 @@ const RequestReviewFormPage = (props: any) => {
                   >
                     Voltar
                   </Button>
-                  { disabled ? (<Button
-                    className="btn-fill pull-right m-2"
-                    onClick={disabledClickHandler}
-                    variant="danger"
-                  >
-                    Editar
-                  </Button>) : (<Button
-                    className="btn-fill pull-right m-2"
-                    onClick={disabledClickHandler}
-                  >
-                    Salvar
-                  </Button>)
-                  }
+                  {disabled ? (
+                    <Button
+                      className="btn-fill pull-right m-2"
+                      onClick={disabledClickHandler}
+                      variant="danger"
+                    >
+                      Editar
+                    </Button>
+                  ) : (
+                    <Button
+                      className="btn-fill pull-right m-2"
+                      onClick={disabledClickHandler}
+                    >
+                      Salvar
+                    </Button>
+                  )}
                   <Button className="btn-fill pull-right" type="submit">
                     Auditar
                   </Button>

@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import utfpr.edu.br.estacionamentoutfpr.model.StickerRequest;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface StickerRequestRepository extends JpaRepository<StickerRequest, UUID> {
 
+    Optional<StickerRequest> findById(UUID uuid);
     List<StickerRequest> findStickerRequestByOperatorRequesterUsername(String userName);
 
     List<StickerRequest> findStickerRequestByOperatorRequesterUsername(Sort sort, String userName);

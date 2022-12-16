@@ -47,10 +47,10 @@ const Request = () => {
   };
 
   function checkAdminPermission() {
-    hasAdminPermission =
+    return (hasAdminPermission =
       authenticatedUser?.authorities.some(
         (it) => it.authority == "ROLE_ADMIN"
-      ) ?? false;
+      ) ?? false);
   }
 
   const loadRequests = () => {
@@ -72,7 +72,7 @@ const Request = () => {
 
   const reviewClickHandler = (id: string) => {
     navigate(`revisar/${id}`);
-  }
+  };
 
   useEffect(() => {
     checkAdminPermission();
@@ -140,6 +140,14 @@ const Request = () => {
                             <td>{req.vehicle.brandName}</td>
                             <td>{req.status}</td>
                             <td>
+                              {checkAdminPermission() && (
+                                <Button
+                                  variant="secondary"
+                                  onClick={() => reviewClickHandler(req.id)}
+                                >
+                                  Auditoria
+                                </Button>
+                              )}
                               <Button
                                 variant="secondary"
                                 onClick={() => editClickHandler(req.id)}
@@ -151,9 +159,6 @@ const Request = () => {
                                 onClick={() => removeClickHandler(req.id)}
                               >
                                 Excluir
-                              </Button>
-                              <Button variant="success" onClick={() => reviewClickHandler(req.id)}>
-                                Auditoria
                               </Button>
                             </td>
                           </tr>

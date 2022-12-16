@@ -15,10 +15,10 @@ const RequestFormPageHandler = () => {
     console.log(brandSelectedName);
 
     const request: StickerRequest = {
-      id: (requestId != "0" ? requestId : ""),
+      id: requestId != "0" ? requestId : "",
       name: values.target[0].value,
       operatorApprover: null,
-      operatorRequester: null,
+      operatorRequester: values.operatorRequester,
       vehicle: {
         brand: values.target[1].value,
         brandName: brandSelectedName,

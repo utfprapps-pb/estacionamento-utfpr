@@ -30,10 +30,12 @@ const RequestFormPage = (props: any) => {
   var hasAdminPermission = false;
 
   useEffect(() => {
-    RequestService.getModels(formData.vehicle.brand).then((response: any) => {
-      setModels(response.data.carBrandModelDTO);
-      setYears(response.data.anos);
-    });
+    if (formData.vehicle.brand > 0) {
+      RequestService.getModels(formData.vehicle.brand).then((response: any) => {
+        setModels(response.data.carBrandModelDTO);
+        setYears(response.data.anos);
+      });
+    }
   }, [formData.vehicle.brand]);
 
   function checkAdminPermission() {
@@ -74,6 +76,7 @@ const RequestFormPage = (props: any) => {
           },
           requesterMessage: response.data.requesterMessage,
           approverMessage: response.data.approverMessage,
+          operatorRequester: response.data.operatorRequester,
           status: response.data.status,
         };
         console.log(request);
@@ -217,8 +220,8 @@ const RequestFormPage = (props: any) => {
                       </Form.Group>
                     </Col>
                   </Row>
-                  { formData.status != 'IN_ANALYSIS' ?
-                    (<Row>
+                  {formData.status != "IN_ANALYSIS" ? (
+                    <Row>
                       <Col md="12">
                         <Form.Group>
                           <label>Observação da revisão</label>
@@ -234,20 +237,20 @@ const RequestFormPage = (props: any) => {
                           ></Form.Control>
                         </Form.Group>
                       </Col>
-                    </Row>) : null
-                  }
+                    </Row>
+                  ) : null}
                   <Button
                     className="btn-fill pull-right m-2"
                     onClick={backClickHandler}
                   >
                     Voltar
                   </Button>
-                  { formData.status != 'APPROVED' && 
-                    formData.status !=  'DENIED' ? 
-                    (<Button className="btn-fill pull-right" type="submit">
+                  {formData.status != "APPROVED" &&
+                  formData.status != "DENIED" ? (
+                    <Button className="btn-fill pull-right" type="submit">
                       Solicitar Adesivo
-                    </Button>) : null
-                  }
+                    </Button>
+                  ) : null}
                   <div className="clearfix"></div>
                 </Form>
               </Card.Body>
