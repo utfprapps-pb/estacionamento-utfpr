@@ -22,7 +22,7 @@ public class StickerRequest {
 
     @NotNull(message = "O usuário não pode ser nulo")
     @ManyToOne
-    @Column(updatable = false)
+    @JoinColumn(referencedColumnName = "id", updatable=false)
     private Operator operatorRequester;
 
     @NotNull(message = "O veículo não pode ser nulo")
