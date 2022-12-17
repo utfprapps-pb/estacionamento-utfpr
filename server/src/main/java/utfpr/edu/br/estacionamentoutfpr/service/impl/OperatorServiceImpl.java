@@ -27,6 +27,7 @@ public class OperatorServiceImpl extends CrudServiceImpl<Operator, UUID>  implem
 
     @Autowired
     AuthUserService authUserService;
+    @Autowired
     OperatorRepository operatorRepository;
 
     AuthorityRepository authorityRepository;
@@ -40,10 +41,13 @@ public class OperatorServiceImpl extends CrudServiceImpl<Operator, UUID>  implem
     }
 
     public Operator save(Operator operator) {
-        operator.setPassword(bCryptPasswordEncoder.encode(operator.getPassword()));
-        operator.setProvider(AuthProvider.local);
-        operator.setUserAuthorities(new HashSet<>());
-        operator.getUserAuthorities().add(authorityRepository.findById(1L).orElse(new Authority()));
+        if(operator.getId() == null) {
+            operator.setPassword(bCryptPasswordEncoder.encode(operator.getPassword()));
+            operator.setProvider(AuthProvider.local);
+            operator.setUserAuthorities(new HashSet<>());
+            operator.getUserAuthorities().add(authorityRepository.findById(1L).orElse(new Authority()));
+            this.loadUserByUsername(operator.getUsername());
+        }
         return operatorRepository.save(operator);
     }
 
@@ -56,7 +60,7 @@ public class OperatorServiceImpl extends CrudServiceImpl<Operator, UUID>  implem
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Operator usuario = operatorRepository.findByUsername(username);
 
-        if (usuario == null) {
+        if (usuario != null) {
             throw new UsernameNotFoundException("Login inválido!");
         }
         return usuario;

@@ -76,26 +76,6 @@ const Request = () => {
 
   useEffect(() => {
     checkAdminPermission();
-
-    /*setRequests([])
-        RequestService.getRequests()
-            .then((res: any) => {
-                res.data.forEach((req: any) => {
-                    console.log(req.vehicle.brand)
-                    RequestService.getModels(req.vehicle.brand)
-                    .then((ress: any) => {
-                        ress.data.carBrandModelDTO.map((model: any) => {
-                            if(req.vehicle.model == model.value) {
-                                console.log('aqui')
-                                req.modelName = model.label,
-                                requests.push(req);
-                                console.log(requests);
-                            }
-                    });
-                });
-                });
-            });*/
-
     loadRequests();
   }, []);
 
@@ -129,42 +109,40 @@ const Request = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                      (console.log(requests),
-                      requests.map((req: any) => {
-                        return (
-                          <tr>
-                            <td>{req.stickerNumber}</td>
-                            <td>{req.name}</td>
-                            <td>{req.vehicle.licensePlate}</td>
-                            <td>{req.vehicle.brandName}</td>
-                            <td>{req.status}</td>
-                            <td>
-                              {checkAdminPermission() && (
-                                <Button
-                                  variant="secondary"
-                                  onClick={() => reviewClickHandler(req.id)}
-                                >
-                                  Auditoria
-                                </Button>
-                              )}
+                    {requests.map((req: any) => {
+                      return (
+                        <tr>
+                          <td>{req.stickerNumber}</td>
+                          <td>{req.name}</td>
+                          <td>{req.vehicle.licensePlate}</td>
+                          <td>{req.vehicle.brandName}</td>
+                          <td>{req.status}</td>
+                          <td>
+                            {checkAdminPermission() ? (
+                              <Button
+                                variant="secondary"
+                                onClick={() => reviewClickHandler(req.id)}
+                              >
+                                Auditoria
+                              </Button>
+                            ) : (
                               <Button
                                 variant="secondary"
                                 onClick={() => editClickHandler(req.id)}
                               >
                                 Editar
                               </Button>
-                              <Button
-                                variant="danger"
-                                onClick={() => removeClickHandler(req.id)}
-                              >
-                                Excluir
-                              </Button>
-                            </td>
-                          </tr>
-                        );
-                      }))
-                    }
+                            )}
+                            <Button
+                              variant="danger"
+                              onClick={() => removeClickHandler(req.id)}
+                            >
+                              Excluir
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </Table>
               </Card.Body>

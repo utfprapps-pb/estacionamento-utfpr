@@ -18,8 +18,6 @@ export function LoginPage() {
   const [disableSubmit, setDisableSubmit] = useState(true);
 
   const onSuccess = (response: CredentialResponse) => {
-    console.log(response.credential);
-
     if (response.credential) {
       handleLoginSocial(response.credential);
     }
@@ -46,7 +44,6 @@ export function LoginPage() {
       username: username,
       password: password,
     };
-    console.log(operatorLogin);
     AuthService.login(operatorLogin)
       .then((response) => {
         handleLogin(response.data);
@@ -66,7 +63,7 @@ export function LoginPage() {
           <h1 className="h3 mb-3 fw-normal">Autenticação</h1>
         </div>
         <div className="form-floating">
-          <Input            
+          <Input
             label="Usuário"
             className="form-control"
             type="text"
@@ -119,7 +116,6 @@ export function LoginPage() {
             onSuccess={onSuccess}
             onError={() => {
               setApiError("Falha ao autenticar-se com o Google");
-              console.log("Login Failed");
             }}
           />
         </div>

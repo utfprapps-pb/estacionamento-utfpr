@@ -46,7 +46,6 @@ const RequestFormPage = (props: any) => {
   }
 
   const handleInputChange = (event: any) => {
-    console.log(event.target);
     const { name, value } = event.target;
     if (name != "name" && name != "requesterMessage") {
       const vehicle = { ...formData.vehicle, [name]: value };
@@ -61,7 +60,6 @@ const RequestFormPage = (props: any) => {
   };
 
   useEffect(() => {
-    console.log(requestId);
     if (requestId != "0") {
       RequestService.getRequest(requestId).then((response: any) => {
         const request = {
@@ -76,10 +74,11 @@ const RequestFormPage = (props: any) => {
           },
           requesterMessage: response.data.requesterMessage,
           approverMessage: response.data.approverMessage,
-          operatorRequester: response.data.operatorRequester,
+          operatorRequester: {
+            id: response.data.operatorRequester.id,
+          },
           status: response.data.status,
         };
-        console.log(request);
         setFormData(request);
       });
     } else {
@@ -96,7 +95,6 @@ const RequestFormPage = (props: any) => {
 
   useEffect(() => {
     checkAdminPermission();
-
     RequestService.getBrands().then((response: any) => {
       setBrands(response.data);
     });
@@ -112,7 +110,11 @@ const RequestFormPage = (props: any) => {
                 <Card.Title as="h4">Solicitação de Adesivo</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form onSubmit={(values) => handleSubmit(values, requestId)}>
+                <Form
+                  onSubmit={(values) =>
+                    handleSubmit(values, requestId, formData)
+                  }
+                >
                   <Row>
                     <Col className="pr-1" md="5">
                       <Form.Group>

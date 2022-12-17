@@ -6,19 +6,21 @@ import RequestFormPage from "./Form";
 const RequestFormPageHandler = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = async (values: any, requestId: string) => {
+  const handleSubmit = async (
+    values: any,
+    requestId: string,
+    formData: any
+  ) => {
     values.preventDefault();
 
     var select = document!.querySelector("select");
     var option = select!.children[select!.selectedIndex];
     var brandSelectedName = option.textContent;
-    console.log(brandSelectedName);
-
     const request: StickerRequest = {
       id: requestId != "0" ? requestId : "",
       name: values.target[0].value,
       operatorApprover: null,
-      operatorRequester: values.operatorRequester,
+      operatorRequester: formData.operatorRequester,
       vehicle: {
         brand: values.target[1].value,
         brandName: brandSelectedName,
@@ -34,7 +36,6 @@ const RequestFormPageHandler = () => {
       approverMessage: "",
       stickerNumber: 0,
     };
-
     RequestService.save(request)
       .then((response: any) => {
         navigate("/");

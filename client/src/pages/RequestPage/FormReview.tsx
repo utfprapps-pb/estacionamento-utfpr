@@ -56,7 +56,6 @@ const RequestReviewFormPage = (props: any) => {
   };
 
   const handleInputChange = (event: any) => {
-    console.log(event.target);
     const { name, value } = event.target;
     if (
       name != "name" &&
@@ -76,7 +75,6 @@ const RequestReviewFormPage = (props: any) => {
   };
 
   useEffect(() => {
-    console.log(requestId);
     if (requestId != "0") {
       RequestService.getRequest(requestId).then((response: any) => {
         const request = {
@@ -91,9 +89,11 @@ const RequestReviewFormPage = (props: any) => {
           },
           requesterMessage: response.data.requesterMessage,
           approverMessage: response.data.approverMessage,
+          operatorRequester: {
+            id: response.data.operatorRequester.id,
+          },
           status: response.data.status,
         };
-        console.log(request);
         setFormData(request);
       });
     } else {
@@ -126,7 +126,11 @@ const RequestReviewFormPage = (props: any) => {
                 <Card.Title as="h4">Auditoria de solicitação</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form onSubmit={(values) => handleSubmit(values, requestId)}>
+                <Form
+                  onSubmit={(values) =>
+                    handleSubmit(values, requestId, formData)
+                  }
+                >
                   <Row>
                     <Col className="pr-1" md="5">
                       <Form.Group>

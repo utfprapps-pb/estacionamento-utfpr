@@ -2,6 +2,7 @@ package utfpr.edu.br.estacionamentoutfpr.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
+@ToString
 public class Operator implements UserDetails {
     @Id
     @GeneratedValue(generator = "UUID")

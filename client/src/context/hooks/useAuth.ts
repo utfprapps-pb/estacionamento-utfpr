@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import api from "axios";
 import history from "../../config/history";
-import { AuthenticatedUser, AuthenticationResponse, OperatorLogin } from "../../commons/types";
+import {
+  AuthenticatedUser,
+  AuthenticationResponse,
+  OperatorLogin,
+} from "../../commons/types";
 
 export function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
-  const [authenticatedUser, setAuthenticatedUser] = useState<AuthenticatedUser>();
+  const [authenticatedUser, setAuthenticatedUser] =
+    useState<AuthenticatedUser>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,8 +26,6 @@ export function useAuth() {
     setLoading(false);
   }, []);
 
-
-
   async function handleLoginOld(operator: OperatorLogin) {
     try {
       setLoading(true);
@@ -34,7 +37,6 @@ export function useAuth() {
         "Authorization"
       ] = `Bearer ${response.data.token}`;
 
-      console.log(response.data.user);
       setAuthenticatedUser(response.data.user);
 
       setAuthenticated(true);
@@ -49,7 +51,6 @@ export function useAuth() {
     setLoading(true);
     api.defaults.headers.common["Auth-Id-Token"] = `Bearer ${idToken}`;
     const response = await api.post("/auth");
-    console.log(response);
     setLoading(false);
 
     api.defaults.headers.common["Auth-Id-Token"] = "";
@@ -71,25 +72,18 @@ export function useAuth() {
   function handleLogin(response: AuthenticationResponse) {
     localStorage.setItem("token", JSON.stringify(response.token));
     localStorage.setItem("user", JSON.stringify(response.user));
-    api.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${response.token}`;
-    console.log(response.user);
+    api.defaults.headers.common["Authorization"] = `Bearer ${response.token}`;
     setAuthenticatedUser(response.user);
     setAuthenticated(true);
   }
 
   function checkIsAuthenticated() {
     if (localStorage.getItem("token") && localStorage.getItem("user")) {
-      const token = JSON.parse(localStorage.getItem("token") || '{}');
-      const user = JSON.parse(localStorage.getItem("user") || '{}');
+      const token = JSON.parse(localStorage.getItem("token") || "{}");
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-      api.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
-      api.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setAuthenticatedUser(user);
       setAuthenticated(true);
     }
@@ -102,6 +96,6 @@ export function useAuth() {
     handleLogin,
     handleLoginSocial,
     handleLogout,
-    checkIsAuthenticated
+    checkIsAuthenticated,
   };
 }

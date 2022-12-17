@@ -6,19 +6,22 @@ import RequestReviewFormPage from "./FormReview";
 const RequestReviewFormPageHandler = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = async (values: any, requestId: string) => {
+  const handleSubmit = async (
+    values: any,
+    requestId: string,
+    formData: any
+  ) => {
     values.preventDefault();
 
     var select = document!.querySelector("select");
     var option = select!.children[select!.selectedIndex];
     var brandSelectedName = option.textContent;
-    console.log(brandSelectedName);
 
     const request: StickerRequest = {
-      id: (requestId != "0" ? requestId : ""),
+      id: requestId != "0" ? requestId : "",
       name: values.target[0].value,
       operatorApprover: null,
-      operatorRequester: null,
+      operatorRequester: formData.operatorRequester,
       vehicle: {
         brand: values.target[1].value,
         brandName: brandSelectedName,

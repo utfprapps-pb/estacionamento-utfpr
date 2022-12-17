@@ -7,7 +7,9 @@ const getBrands = () => {
 };
 
 const getModels = (brandCode: number) => {
-  return api.get(API_BASE_URL + "/vehicle/listCarModels?brandCode=" + brandCode);
+  return api.get(
+    API_BASE_URL + "/vehicle/listCarModels?brandCode=" + brandCode
+  );
 };
 
 const save = (request: StickerRequest) => {
@@ -23,7 +25,7 @@ const getRequests = () => {
 };
 
 const remove = (requestId: string) => {
-  return api.delete(API_BASE_URL +  `/stickerRequest/${requestId}`)
+  return api.delete(API_BASE_URL + `/stickerRequest/${requestId}`);
 };
 
 const RequestService = {
@@ -33,6 +35,6 @@ const RequestService = {
   save,
   getRequest,
   remove,
-}
+};
 
 export default RequestService;

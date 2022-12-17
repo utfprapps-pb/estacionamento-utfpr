@@ -39,6 +39,6 @@ public class StickerRequest {
 
     private String approverMessage;
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long stickerNumber;
 }

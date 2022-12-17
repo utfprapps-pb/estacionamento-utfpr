@@ -24,22 +24,21 @@ const OperatorCrud = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    OperatorService.getOperator(idUsuario)
-    .then(response => {
-        setFormData({
-          name: response.data.name,
-          username: response.data.username,
-          password: response.data.password,
-          surename: response.data.surename,
-          email: response.data.email,
-          address: response.data.address,
-          complement: response.data.complement,
-          zipcode: response.data.zipcode,
-          neighborhood: response.data.neighborhood,
-          city: response.data.city,
-          documentFileName: response.data.documentFileName,
-        });
+    OperatorService.getOperator(idUsuario).then((response) => {
+      setFormData({
+        name: response.data.name,
+        username: response.data.username,
+        password: response.data.password,
+        surename: response.data.surename,
+        email: response.data.email,
+        address: response.data.address,
+        complement: response.data.complement,
+        zipcode: response.data.zipcode,
+        neighborhood: response.data.neighborhood,
+        city: response.data.city,
+        documentFileName: response.data.documentFileName,
       });
+    });
   }, [idUsuario]);
 
   const handleInputChange = (event: any) => {
@@ -51,7 +50,7 @@ const OperatorCrud = () => {
     OperatorService.deletar(idUsuario).then((data) => {
       navigate("/usuarios");
     });
-  }
+  };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -88,18 +87,6 @@ const OperatorCrud = () => {
                 id="username"
                 name="username"
                 value={formData.username}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label htmlFor="password">Senha:</Form.Label>
-              <Form.Control
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
                 onChange={handleInputChange}
               />
             </Form.Group>
